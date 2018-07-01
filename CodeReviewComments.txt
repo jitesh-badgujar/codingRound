@@ -1,0 +1,19 @@
+Fixed following errors:
+1. Driver init was at wrong place- Fixed by initializing it after setting driver path. 
+2. Updated Selenium client and Chrome driver (to latest version) to avoid compatibility issue.
+3. Fixed SignInTest by switching to frame(signInWindow) before clicking on signInButton.
+4. Fixed FlightBookingTest by changing locator for destination city. (id attribute was not giving proper result)
+5. Fixed HotelBookingTest using pageFactory initElements (Init was missing)
+
+Enhancement done:
+1. Added missing assertion for HotelSearchTest without setting dates
+2. Used page object design pattern for all tests
+3. Moved Driver init and quit methods to parent class to that all tests can inherit them.
+4. Moved test data to test classes to support parameterization 
+5. Removed hard coded wait  and improved using implicit/explicit waits
+6. Added testng.xml with Support for parallel test
+
+ToDo/Enhancements:
+1. Include Browser factory and support for other browsers (e.g.firefox)
+2. Capture screenshots whenever needed
+3. Include loggers for debugging purpose
