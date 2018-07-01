@@ -1,4 +1,7 @@
+import java.util.concurrent.TimeUnit;
+
 import com.sun.javafx.PlatformUtil;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -15,11 +18,13 @@ public class SignInTest {
         setDriverPath();
         driver = new ChromeDriver();
         driver.get("https://www.cleartrip.com/");
-        waitFor(2000);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
         driver.findElement(By.linkText("Your trips")).click();
         driver.findElement(By.id("SignIn")).click();
 
+        driver.switchTo().frame("modal_window");
+        
         driver.findElement(By.id("signInButton")).click();
 
         String errors1 = driver.findElement(By.id("errors1")).getText();
