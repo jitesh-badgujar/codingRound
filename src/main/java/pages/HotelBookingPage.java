@@ -34,15 +34,12 @@ public class HotelBookingPage {
 	@FindBy(xpath = "//h1[contains(.,'Search')]")
 	private WebElement searchForm;
 
-	@FindBy(className = "searchSummary")
-	private WebElement searchSummary;
-
 	public HotelBookingPage(WebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
 
-	public void searchHotelsWithoutCheckInDate(String location,
+	public SearchResultPage searchHotelsWithoutCheckInDate(String location,
 			String travellers) {
 		hotelLink.click();
 
@@ -54,10 +51,7 @@ public class HotelBookingPage {
 
 		new Select(travellerSelection).selectByVisibleText(travellers);
 		searchButton.click();
-	}
-
-	public void checkIfSearchSummryFound() {
-		Assert.assertTrue(searchSummary.isDisplayed());
+		return new SearchResultPage(driver);
 	}
 
 	public WebElement waitForElement(WebElement locator) {

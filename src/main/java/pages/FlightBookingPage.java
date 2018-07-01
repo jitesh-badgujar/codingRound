@@ -37,15 +37,12 @@ public class FlightBookingPage {
 	@FindBy(id = "SearchBtn")
 	WebElement searchButton;
 
-	@FindBy(className = "searchSummary")
-	WebElement searchSummary;
-
 	public FlightBookingPage(WebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
 
-	public void searchOneWayFlightsOnDefaultDates(String sourceCity,
+	public SearchResultPage searchOneWayFlightsOnDefaultDates(String sourceCity,
 			String destinationCity) {
 		oneWayRadioButton.click();
 
@@ -62,10 +59,8 @@ public class FlightBookingPage {
 		datePicker.click();
 
 		searchButton.click();
-	}
-
-	public void checkIfSearchSummaryFound() {
-		Assert.assertTrue(searchSummary.isDisplayed());
+		
+		return new SearchResultPage(driver);
 	}
 
 	public WebElement waitForElement(WebElement locator) {
