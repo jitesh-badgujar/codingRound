@@ -45,17 +45,18 @@ public class FlightBookingPage {
 		PageFactory.initElements(driver, this);
 	}
 
-	public void searchOneWayFlights() {
+	public void searchOneWayFlightsOnDefaultDates(String sourceCity,
+			String destinationCity) {
 		oneWayRadioButton.click();
 
 		sourceCityTextBox.clear();
-		sourceCityTextBox.sendKeys("Bangalore");
+		sourceCityTextBox.sendKeys(sourceCity);
 		// wait for autocomplete to load
 		waitForElement(autoCompleteSourceCityList.get(0)).click();
 
 		destintionCityTextBox.clear();
-		destintionCityTextBox.sendKeys("Delhi");
-		// wait
+		destintionCityTextBox.sendKeys(destinationCity);
+		// wait autocomplete to load
 		waitForElement(autoCompleteDestinationCityList.get(0)).click();
 
 		datePicker.click();

@@ -1,11 +1,15 @@
 package pages;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 public class HotelBookingPage {
@@ -38,20 +42,36 @@ public class HotelBookingPage {
 		PageFactory.initElements(driver, this);
 	}
 
-	public void searchHotelsWithoutCheckInDate() {
+	public void searchHotelsWithoutCheckInDate(String location,
+			String travellers) {
 		hotelLink.click();
 
-		localityTextBox.sendKeys("Indiranagar, Bangalore");
+		localityTextBox.sendKeys(location);
 
-		autoCompleteOptionList.get(0).click();
+		waitForElement(autoCompleteOptionList.get(0)).click();
 
 		searchForm.click(); // This is to void selecting date
 
-		new Select(travellerSelection).selectByVisibleText("1 room, 2 adults");
+		new Select(travellerSelection).selectByVisibleText(travellers);
 		searchButton.click();
 	}
 
 	public void checkIfSearchSummryFound() {
 		Assert.assertTrue(searchSummary.isDisplayed());
+	}
+
+	public WebElement waitForElement(WebElement locator) {
+		WebDriverWait wait = new WebDriverWait(driver, 30);
+
+		WebElement element = wait.until(ExpectedConditions
+				.elementToBeClickable(locator));
+
+		if (element != null) {
+			return element;
+		} else {
+			throw new NoSuchElementException(
+					"Element not found within expected time:"
+							+ locator.toString());
+		}
 	}
 }

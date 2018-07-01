@@ -8,6 +8,7 @@ import org.testng.Assert;
 
 public class SignInPage {
 	private WebDriver driver;
+	private final String expectedErrorMessage = "There were errors in your submission";
 
 	@FindBy(linkText = "Your trips")
 	WebElement yourTripsLink;
@@ -38,8 +39,6 @@ public class SignInPage {
 	public void checkIfErrorMessageReceived() {
 		String errorText = errorMessage.getText();
 
-		Assert.assertTrue(errorText
-				.contains("There were errors in your submission"));
+		Assert.assertTrue(errorText.contains(expectedErrorMessage));
 	}
-
 }
