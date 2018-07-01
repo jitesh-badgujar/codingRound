@@ -19,10 +19,10 @@ public class HotelBookingTest {
         setDriverPath();
         driver = new ChromeDriver();
         driver.get("https://www.cleartrip.com/");
-        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         HotelBookingPage hotelBookingPage = PageFactory.initElements(driver, HotelBookingPage.class);
-        hotelBookingPage.searchHotels();
-
+        hotelBookingPage.searchHotelsWithoutCheckInDate();
+        hotelBookingPage.checkIfSearchResultFound();
         driver.quit();
 
     }
