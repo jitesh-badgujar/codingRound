@@ -3,11 +3,9 @@ package pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
-public class SignInPage {
-	private WebDriver driver;
+public class SignInPage extends BasePage {
 	private final String expectedErrorMessage = "There were errors in your submission";
 
 	@FindBy(linkText = "Your trips")
@@ -25,8 +23,7 @@ public class SignInPage {
 	WebElement errorMessage;
 
 	public SignInPage(WebDriver driver) {
-		this.driver = driver;
-		PageFactory.initElements(driver, this);
+		super(driver);
 	}
 
 	public void trySignInWithoutEnteringCredentials() {

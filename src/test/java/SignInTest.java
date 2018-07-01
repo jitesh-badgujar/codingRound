@@ -9,5 +9,4 @@ public class SignInTest extends BaseTestCase {
 		singInPage.trySignInWithoutEnteringCredentials();
 		singInPage.checkIfErrorMessageReceived();
 	}
-
 }

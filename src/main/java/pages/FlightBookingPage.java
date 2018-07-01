@@ -1,19 +1,13 @@
 package pages;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 
-public class FlightBookingPage {
-	private WebDriver driver;
-
+public class FlightBookingPage extends BasePage 
+{
 	@FindBy(id = "OneWay")
 	WebElement oneWayRadioButton;
 
@@ -37,9 +31,8 @@ public class FlightBookingPage {
 	@FindBy(id = "SearchBtn")
 	WebElement searchButton;
 
-	public FlightBookingPage(WebDriver driver) {
-		this.driver = driver;
-		PageFactory.initElements(driver, this);
+	public FlightBookingPage(WebDriver driver){
+		super(driver);
 	}
 
 	public SearchResultPage searchOneWayFlightsOnDefaultDates(String sourceCity,
@@ -57,24 +50,9 @@ public class FlightBookingPage {
 		waitForElement(autoCompleteDestinationCityList.get(0)).click();
 
 		datePicker.click();
-
-		searchButton.click();
 		
+		searchButton.click();
+	
 		return new SearchResultPage(driver);
-	}
-
-	public WebElement waitForElement(WebElement locator) {
-		WebDriverWait wait = new WebDriverWait(driver, 30);
-
-		WebElement element = wait.until(ExpectedConditions
-				.elementToBeClickable(locator));
-
-		if (element != null) {
-			return element;
-		} else {
-			throw new NoSuchElementException(
-					"Element not found within expected time:"
-							+ locator.toString());
-		}
 	}
 }

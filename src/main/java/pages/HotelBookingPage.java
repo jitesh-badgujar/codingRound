@@ -1,21 +1,13 @@
 package pages;
 
 import java.util.List;
-import java.util.NoSuchElementException;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 
-public class HotelBookingPage {
-
-	WebDriver driver;
-
+public class HotelBookingPage extends BasePage
+{
 	@FindBy(linkText = "Hotels")
 	private WebElement hotelLink;
 
@@ -35,8 +27,7 @@ public class HotelBookingPage {
 	private WebElement searchForm;
 
 	public HotelBookingPage(WebDriver driver) {
-		this.driver = driver;
-		PageFactory.initElements(driver, this);
+		super(driver);
 	}
 
 	public SearchResultPage searchHotelsWithoutCheckInDate(String location,
@@ -50,22 +41,9 @@ public class HotelBookingPage {
 		searchForm.click(); // This is to void selecting date
 
 		new Select(travellerSelection).selectByVisibleText(travellers);
+		
 		searchButton.click();
+		
 		return new SearchResultPage(driver);
-	}
-
-	public WebElement waitForElement(WebElement locator) {
-		WebDriverWait wait = new WebDriverWait(driver, 30);
-
-		WebElement element = wait.until(ExpectedConditions
-				.elementToBeClickable(locator));
-
-		if (element != null) {
-			return element;
-		} else {
-			throw new NoSuchElementException(
-					"Element not found within expected time:"
-							+ locator.toString());
-		}
 	}
 }
